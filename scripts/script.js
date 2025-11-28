@@ -5,7 +5,7 @@ const NUMBERS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const playGame = () => {
   sequence = [];
-  currentRound = 1
+  currentRound = 1;
   showSequence();
 };
 
@@ -15,31 +15,63 @@ const showSequence = () => {
     sequence.push(NUMBERS[randomIndex]);
   }
 
-  let sequenceDiv = document.createElement("div");
-  sequenceDiv.textContent = `Remember this sequence: ${sequence.join(" ")}`;
-  let readyButton = document.createElement("button");
-  readyButton.textContent = "I'm ready!"
+  let messageContainer = document.querySelector(".message-container");
+  messageContainer.innerHTML = `
+    <div class="sequence">Remember this sequence: ${sequence.join(" ")}</div>
+    <button class="ready-btn">I'm ready!</button>
+  `;
 
-  document.querySelector(".message-container").appendChild(sequenceDiv);
-  document.querySelector(".message-container").appendChild(readyButton);
-
-  readyButton.onclick = () =>{
-    document.querySelector(".message-container").classList.add("hide");
+  document.querySelector(".ready-btn").onclick = () => {
+    messageContainer.classList.add("hide");
     userInput();
-  }
-
+  };
 };
 
 const userInput = () => {
-  let answerInput = document.createElement("input");
-  answerInput.id = "user-sequence";
-  let inputLabel = document.createElement("label");
-  inputLabel.textContent = "Enter the sequence:";
-  inputLabel.setAttribute("for", "user-sequence");
+  let inputContainer = document.querySelector(".input-container");
+  inputContainer.innerHTML = `
+    <label for="user-input">Enter the sequence:</label>
+    <input id="user-input" class="input">
+    <button class="submit-button">Submit!</button>
+  `;
 
-  const container = document.querySelector(".input-container")
-  container.appendChild(inputLabel);
-  container.appendChild(answerInput);
-}
+  document.querySelector(".submit-button").onclick = () => {
+    let answer = document.querySelector("#user-input").value.trim();
+    compare(answer);
+  };
+};
 
-document.querySelector(".start-button").onclick = () => playGame();
+const compare = () => {
+  let inputValue = document.querySelector("#user-input").value;
+  let userArray = inputValue.replace(/\s+/g, "").split("").map(Number);
+
+  const match = (a, b) => {
+    if (a.length !== b.length) return false;
+
+    for (let i = 0; i < a.length; i++) {
+      if (a[i] !== b[i]) return false;
+    }
+
+    return true;
+  };
+
+  if (match(userArray, sequence)) {
+    correct();
+  } else {
+    lose();
+  };
+};
+
+const correct = () => {
+
+};
+
+const lose = () => {
+
+};
+
+let start = document.querySelector(".start-button");
+start.onclick = () => {
+  playGame();
+  start.textContent = "RESTART!";
+};
