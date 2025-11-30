@@ -29,6 +29,7 @@ const showSequence = () => {
 
 const userInput = () => {
   let inputContainer = document.querySelector(".input-container");
+  inputContainer.classList.remove("hide");
   inputContainer.innerHTML = `
     <label for="user-input">Enter the sequence:</label>
     <input id="user-input" class="input">
@@ -82,6 +83,8 @@ const correct = () => {
 
   document.querySelector(".next-btn").onclick = () => {
     document.querySelector(".message-container").classList.remove("hide");
+    document.querySelector(".results-container").textContent = "";
+    showSequence();
   };
 };
 
