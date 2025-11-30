@@ -32,13 +32,18 @@ const userInput = () => {
   inputContainer.innerHTML = `
     <label for="user-input">Enter the sequence:</label>
     <input id="user-input" class="input">
-    <button class="submit-button">Submit!</button>
+    <button class="submit-btn">Submit!</button>
   `;
 
-  document.querySelector(".submit-button").onclick = () => {
-    let answer = document.querySelector("#user-input").value.trim();
-    compare(answer);
+  let submit = document.querySelector(".submit-btn");
+  submit.onclick = () => {
+    inputContainer.classList.add("hide");
+    compare();
   };
+
+  document.querySelector("#user-input").addEventListener("keypress", e => {
+    if (e.key == "Enter") submit.click();
+  });
 };
 
 const compare = () => {
@@ -56,18 +61,38 @@ const compare = () => {
   };
 
   if (match(userArray, sequence)) {
+    console.log("correct");
+
     correct();
   } else {
+    console.log("game over");
+
     lose();
-  };
+  }
 };
 
 const correct = () => {
+  currentRound++;
+  let correctMessage = document.createElement("div");
+  correctMessage.innerHTML = `
+    <div class="results-message">You got it! The answer was ${sequence}. Ready for the next round?</div>
+    <button class="next-btn">Next</button>
+    `;
+  document.querySelector(".results-container").appendChild(correctMessage);
 
+  document.querySelector(".next-btn").onclick = () => {
+    document.querySelector(".message-container").classList.remove("hide");
+  };
 };
 
 const lose = () => {
-
+  gameOver = true;
+  let gameOverMessage = document.createElement("div");
+  gameOverMessage.innerHTML = `
+    <div class="results-message">Whoops! The answer was ${sequence}.</div>
+    <div class="results-message">Click RESTART to play again!</div>
+    `;
+  document.querySelector(".results-container").appendChild(gameOverMessage);
 };
 
 let start = document.querySelector(".start-button");
