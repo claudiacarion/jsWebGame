@@ -7,6 +7,9 @@ const playGame = () => {
   sequence = [];
   currentRound = 1;
   showSequence();
+
+  let round = document.createElement("div");
+  document.querySelector(".main-content").appendChild(round);
 };
 
 const showSequence = () => {
@@ -86,6 +89,16 @@ const correct = () => {
     document.querySelector(".results-container").textContent = "";
     showSequence();
   };
+
+  if (currentRound >= 4) win();
+};
+
+const win = () => {
+  document.querySelector(".game-play").classList.add("hide");
+  let winMessage = document.createElement("div");
+  winMessage.textContent = "Wow! Impressive memory! You win!";
+  document.querySelector(".main-content").appendChild(winMessage);
+  gameOver = true;
 };
 
 const lose = () => {
@@ -98,8 +111,10 @@ const lose = () => {
   document.querySelector(".results-container").appendChild(gameOverMessage);
 };
 
-let start = document.querySelector(".start-button");
+let start = document.querySelector(".start-btn");
 start.onclick = () => {
   playGame();
   start.textContent = "RESTART!";
+  start.classList.add("restart-btn");
+  start.classList.remove("start-btn");
 };
