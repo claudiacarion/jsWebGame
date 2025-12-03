@@ -43,6 +43,10 @@ button {
   padding: 8px;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 .header {
   color: var(--secondary);
   font-size: 1.2rem;
