@@ -97,8 +97,14 @@ const compare = () => {
 };
 
 const correct = () => {
+  if (currentRound >= 5) {
+    win();
+    return;
+  };
+
   currentRound++;
   counters();
+
   let correctMessage = document.createElement("div");
   correctMessage.innerHTML = `
     <div class="results-message">You got it! The answer was</div>
@@ -113,8 +119,6 @@ const correct = () => {
     empty(document.querySelector(".results-container"));
     showSequence();
   };
-
-  if (currentRound >= 6) win();
 };
 
 const win = () => {
