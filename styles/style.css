@@ -101,15 +101,25 @@ button:hover {
 
 .footer {
   color: var(--secondary);
+  margin: 16px 0px;
   text-align: center;
 }
 
-.footer h4, h5 {
-  margin: 16px;
+.footer h4,
+h5 {
+  margin: 0px;
 }
 
-a, a:visited, a:active {
+a,
+a:visited,
+a:active {
   color: var(--tertiary);
+  text-decoration: none;
+}
+
+.icon {
+  font-size: 0.6rem;
+  margin: 0px 8px;
 }
 
 .overlay {
