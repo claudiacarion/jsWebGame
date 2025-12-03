@@ -53,7 +53,7 @@ const userInput = () => {
     compare();
   };
 
-  const input = document.querySelector("#user-input")
+  const input = document.querySelector("#user-input");
   input.addEventListener("keypress", e => {
     if (e.key == "Enter") submit.click();
   });
@@ -132,7 +132,8 @@ const win = () => {
 const lose = () => {
   let gameOverMessage = document.createElement("div");
   gameOverMessage.innerHTML = `
-    <div class="results-message">Whoops! The answer was ${sequence.join(" ")}.</div>
+    <div class="results-message">Whoops! The answer was</div>
+    <div class="sequence">${sequence.join(" ")}</div>
     <div class="results-message">Click RESTART to play again!</div>
     `;
   document.querySelector(".results-container").appendChild(gameOverMessage);
@@ -140,7 +141,7 @@ const lose = () => {
 
 const start = document.querySelector(".start-btn");
 start.onclick = () => {
-  hide(document.querySelector(".landing-image"))
+  hide(document.querySelector(".landing-image"));
   plays++;
   currentRound = 1;
   counters();
