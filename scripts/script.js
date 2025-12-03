@@ -1,12 +1,18 @@
 let currentRound = 1;
 let gameOver = false;
 let sequence = [];
+let plays = 0;
 const NUMBERS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const playGame = () => {
   sequence = [];
   currentRound = 1;
   showSequence();
+};
+
+const counters = () => {
+  document.querySelector(".plays").textContent = `Play: ${plays}`;
+  document.querySelector(".rounds").textContent = `Round: ${currentRound}`;
 };
 
 const showSequence = () => {
@@ -87,6 +93,7 @@ const compare = () => {
 
 const correct = () => {
   currentRound++;
+  counters();
   let correctMessage = document.createElement("div");
   correctMessage.innerHTML = `
     <div class="results-message">You got it! The answer was ${sequence.join(" ")}. Ready for the next round?</div>
@@ -124,6 +131,9 @@ const lose = () => {
 
 const start = document.querySelector(".start-btn");
 start.onclick = () => {
+  plays++;
+  currentRound = 1;
+  counters();
   if (start.textContent === "START!") {
     playGame();
     start.textContent = "RESTART!";
@@ -133,8 +143,6 @@ start.onclick = () => {
 };
 
 const reset = () => {
-  if (!gameOver) return;
-
   currentRound = 1;
   sequence = [];
   gameOver = false;
