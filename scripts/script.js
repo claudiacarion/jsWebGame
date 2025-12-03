@@ -114,14 +114,18 @@ const correct = () => {
     showSequence();
   };
 
-  if (currentRound >= 3) win();
+  if (currentRound >= 6) win();
 };
 
 const win = () => {
   hide(document.querySelector(".game-play"));
   let winMessage = document.createElement("div");
-  winMessage.classList.add("win-message");
-  winMessage.textContent = "Wow! Impressive memory! You win!";
+  winMessage.innerHTML = `
+    <div class="win-message">
+      <div>"Wow! Impressive memory! You win!"</div>
+      <img src="./images/heart.png" class="win-image" alt="win image" height="100" width="auto"/>
+    </div>
+  `;
   document.querySelector(".main-content").appendChild(winMessage);
 };
 
@@ -136,6 +140,7 @@ const lose = () => {
 
 const start = document.querySelector(".start-btn");
 start.onclick = () => {
+  hide(document.querySelector(".landing-image"))
   plays++;
   currentRound = 1;
   counters();
