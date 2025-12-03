@@ -4,6 +4,10 @@ let sequence = [];
 let plays = 0;
 const NUMBERS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
+const show = element => element.classList.remove("hide");
+const hide = element => element.classList.add("hide");
+const empty = element => (element.innerHTML = "");
+
 const playGame = () => {
   sequence = [];
   currentRound = 1;
@@ -23,34 +27,37 @@ const showSequence = () => {
 
   let messageContainer = document.querySelector(".message-container");
   messageContainer.innerHTML = `
-    <div class="sequence">Remember this sequence: ${sequence.join(" ")}</div>
+    <div class="sequence-label">Remember this sequence:</div>
+    <div class="sequence">${sequence.join(" ")}</div>
     <button class="ready-btn">I'm ready!</button>
   `;
 
   document.querySelector(".ready-btn").onclick = () => {
-    messageContainer.classList.add("hide");
+    hide(messageContainer);
     userInput();
   };
 };
 
 const userInput = () => {
   let inputContainer = document.querySelector(".input-container");
-  inputContainer.classList.remove("hide");
+  show(inputContainer);
   inputContainer.innerHTML = `
     <label for="user-input">Enter the sequence:</label>
     <input id="user-input" class="input">
     <button class="submit-btn">Submit!</button>
   `;
 
-  let submit = document.querySelector(".submit-btn");
+  const submit = document.querySelector(".submit-btn");
   submit.onclick = () => {
-    inputContainer.classList.add("hide");
+    hide(inputContainer);
     compare();
   };
 
-  document.querySelector("#user-input").addEventListener("keypress", e => {
+  const input = document.querySelector("#user-input")
+  input.addEventListener("keypress", e => {
     if (e.key == "Enter") submit.click();
   });
+  input.focus();
 };
 
 const compare = () => {
@@ -62,17 +69,15 @@ const compare = () => {
   const showError = message => {
     results.innerHTML = `<div class="error-message">${message}</div>`;
     setTimeout(() => (results.innerHTML = ""), 1500);
-    document.querySelector(".input-container").classList.remove("hide");
+    show(document.querySelector(".input-container"));
   };
 
   if (userArray.some(number => Number.isNaN(number))) {
-    showError("Enter numbers only.");
-    return;
+    return showError("Enter numbers only.");
   }
 
   if (userArray.length !== sequence.length) {
-    showError(`Enter ${sequence.length} digit(s).`);
-    return;
+    return showError(`Enter ${sequence.length} digit(s).`);
   }
 
   const match = (a, b) => {
@@ -96,32 +101,31 @@ const correct = () => {
   counters();
   let correctMessage = document.createElement("div");
   correctMessage.innerHTML = `
-    <div class="results-message">You got it! The answer was ${sequence.join(" ")}.</div>
+    <div class="results-message">You got it! The answer was</div>
+    <div class="sequence">${sequence.join(" ")}</div>
     <div>Ready for the next round?</div>
     <button class="next-btn">Next</button>
     `;
   document.querySelector(".results-container").appendChild(correctMessage);
 
   document.querySelector(".next-btn").onclick = () => {
-    document.querySelector(".message-container").classList.remove("hide");
-    document.querySelector(".results-container").textContent = "";
+    show(document.querySelector(".message-container"));
+    empty(document.querySelector(".results-container"));
     showSequence();
   };
 
-  if (currentRound >= 6) win();
+  if (currentRound >= 3) win();
 };
 
 const win = () => {
-  document.querySelector(".game-play").classList.add("hide");
+  hide(document.querySelector(".game-play"));
   let winMessage = document.createElement("div");
   winMessage.classList.add("win-message");
   winMessage.textContent = "Wow! Impressive memory! You win!";
   document.querySelector(".main-content").appendChild(winMessage);
-  gameOver = true;
 };
 
 const lose = () => {
-  gameOver = true;
   let gameOverMessage = document.createElement("div");
   gameOverMessage.innerHTML = `
     <div class="results-message">Whoops! The answer was ${sequence.join(" ")}.</div>
@@ -149,17 +153,17 @@ const reset = () => {
   gameOver = false;
 
   const message = document.querySelector(".message-container");
-  message.innerHTML = "";
-  message.classList.remove("hide");
+  empty(message);
+  show(message);
 
   const results = document.querySelector(".results-container");
-  results.innerHTML = "";
+  empty(results);
 
   const input = document.querySelector(".input-container");
-  input.innerHTML = "";
-  input.classList.remove("hide");
+  empty(input);
+  show(input);
 
-  document.querySelector(".game-play").classList.remove("hide");
+  show(document.querySelector(".game-play"));
 
   const winMessage = document.querySelector(".win-message");
   if (winMessage) winMessage.remove();
