@@ -58,10 +58,10 @@ const compare = () => {
   let userArray = inputValue.replace(/\s+/g, "").split("").map(Number);
 
   const results = document.querySelector(".results-container");
-  
-  const showError = (message) => {
+
+  const showError = message => {
     results.innerHTML = `<div class="error-message">${message}</div>`;
-    setTimeout(() => results.innerHTML = "", 1500);
+    setTimeout(() => (results.innerHTML = ""), 1500);
     document.querySelector(".input-container").classList.remove("hide");
   };
 
@@ -96,7 +96,8 @@ const correct = () => {
   counters();
   let correctMessage = document.createElement("div");
   correctMessage.innerHTML = `
-    <div class="results-message">You got it! The answer was ${sequence.join(" ")}. Ready for the next round?</div>
+    <div class="results-message">You got it! The answer was ${sequence.join(" ")}.</div>
+    <div>Ready for the next round?</div>
     <button class="next-btn">Next</button>
     `;
   document.querySelector(".results-container").appendChild(correctMessage);
@@ -107,7 +108,7 @@ const correct = () => {
     showSequence();
   };
 
-  if (currentRound >= 4) win();
+  if (currentRound >= 6) win();
 };
 
 const win = () => {
@@ -165,3 +166,7 @@ const reset = () => {
 
   playGame();
 };
+
+$(() => {
+  $(".overlay").delay(2000).fadeOut();
+});
