@@ -12,6 +12,7 @@
 
 html,
 body {
+  font-size: 14px;
   height: 100%;
 }
 
@@ -51,7 +52,6 @@ a:active {
 
 .header {
   color: var(--secondary);
-  /* font-size: 1.2rem; */
   margin: 16px 8px;
   text-align: center;
 }
@@ -84,13 +84,15 @@ a:active {
 
 .input {
   font-size: 1.2rem;
-  max-width: 90%;
+  max-width: 85%;
+  margin: 16px 0px;
   padding: 10px 8px;
+  text-align: center;
 }
 
 .sequence {
   font-size: 1.2rem;
-  margin: 16px 0px;
+  margin: 16px;
 }
 
 .win-message,
@@ -130,5 +132,13 @@ a:active {
 @media screen and (min-width: 768px) {
   html {
     font-size: 24px;
+  }
+
+  button {
+    font-size: 0.8rem;
+  }
+  
+  .header__title {
+    font-size: 2rem;
   }
 }
