@@ -145,7 +145,7 @@ const lose = () => {
 
 const start = document.querySelector(".start-btn");
 start.onclick = () => {
-  document.querySelector(".header").style.fontSize = "0.8rem";
+  document.querySelector(".header").style.fontSize = "0.6rem";
   hide(document.querySelector(".landing-image"));
   plays++;
   currentRound = 1;
