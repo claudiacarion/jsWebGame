@@ -141,4 +141,8 @@ a:active {
   .header__title {
     font-size: 2rem;
   }
+
+  .instructions {
+    max-width: 60%;
+  }
 }

@@ -64,11 +64,11 @@ const compare = () => {
   let inputValue = document.querySelector("#user-input").value;
   let userArray = inputValue.replace(/\s+/g, "").split("").map(Number);
 
-  const results = document.querySelector(".results-container");
+  const error = document.querySelector(".error-container");
 
   const showError = message => {
-    results.innerHTML = `<div class="error-message">${message}</div>`;
-    setTimeout(() => (results.innerHTML = ""), 1500);
+    error.innerHTML = `<div class="error-message">${message}</div>`;
+    setTimeout(() => (error.innerHTML = ""), 1000);
     show(document.querySelector(".input-container"));
   };
 
@@ -145,8 +145,9 @@ const lose = () => {
 
 const start = document.querySelector(".start-btn");
 start.onclick = () => {
-  document.querySelector(".header").style.fontSize = "0.6rem";
+  document.querySelector(".header").style.fontSize = "1rem";
   hide(document.querySelector(".landing-image"));
+  hide(document.querySelector(".instructions"));
   plays++;
   currentRound = 1;
   counters();
