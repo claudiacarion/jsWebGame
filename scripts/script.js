@@ -2,6 +2,7 @@ let currentRound = 1;
 let gameOver = false;
 let sequence = [];
 let plays = 0;
+let lastInput = [];
 const NUMBERS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const show = element => element.classList.remove("hide");
@@ -80,6 +81,8 @@ const compare = () => {
     return showError(`Enter ${sequence.length} digit(s).`);
   }
 
+  lastInput = userArray;
+
   const match = (a, b) => {
     if (a.length !== b.length) return false;
 
@@ -100,7 +103,7 @@ const correct = () => {
   if (currentRound >= 5) {
     win();
     return;
-  };
+  }
 
   currentRound++;
   counters();
@@ -135,10 +138,13 @@ const win = () => {
 
 const lose = () => {
   let gameOverMessage = document.createElement("div");
+
   gameOverMessage.innerHTML = `
     <div class="results-message">Whoops! The answer was</div>
     <div class="sequence">${sequence.join(" ")}</div>
-    <div class="results-message">Click RESTART to play again!</div>
+    <div class="results-message">You entered</div>
+    <div class="sequence">${lastInput.join(" ")}</div>
+    <div class="results-message">Press RESTART to play again!</div>
     `;
   document.querySelector(".results-container").appendChild(gameOverMessage);
 };
